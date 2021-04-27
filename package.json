@@ -1,5 +1,5 @@
 {
-  "name": "@ym/watashi-frender-widgets",
+  "name": "@yametech/watashi-frender-widgets",
   "version": "0.0.15",
   "main": "./src/type",
   "dependencies": {
@@ -28,8 +28,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "unpub": "npm unpublish @ym/watashi-frender-widgets --force",
-    "pub": "yarn unpub && rm -rf ym-watashi-frender-widgets-* && npm pack && npm publish --registry=http://10.200.100.200:4873/"
+    "unpub": "npm unpublish @yametech/watashi-frender-widgets --force",
+    "login": "npm login --scope=@yametech --registry=https://npm.pkg.github.com",
+    "pub": "yarn unpub && rm -rf ym-watashi-frender-widgets-* && npm pack && npm publish --registry=https://npm.pkg.github.com"
   },
   "eslintConfig": {
     "extends": [
