@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Generator from 'fr-generator';
 import { Modal, Button } from 'antd';
 // fr-generator 1.0 未提交声明文件 等待 fr-generator 更新
@@ -17,7 +17,7 @@ import RemoteDataSelect from '../wataishi-widgets/RemoteDataSelect';
 import { useForm } from 'form-render';
 import { ExpandFormRender } from '../watashi-form-render/ExpandFormRender';
 
-const defaultValue = {
+const defaultValue= {
 	schema: {
 		type: 'object',
 		properties: {
@@ -42,6 +42,7 @@ type Props = {
 };
 
 export function SchemaGenerator(props: Props) {
+
 	const [data, setData] = useState({});
 	const [effect, setEffect] = useState(false);
 	const [schema, setSchma] = useState(() => props.schema || defaultValue);
@@ -70,13 +71,21 @@ export function SchemaGenerator(props: Props) {
 		},
 	];
 
+	useEffect(() => {
+		if(JSON.stringify(props.schema) != '{}'){
+			setSchma(props.schema);
+		}
+  }, [props.schema]);
+
 	let concatD = settings.concat(defaultSettings);
+
+	console.log("33413",schema, JSON.stringify(schema) != '{}')
 
 	return (
 		<>
 			<Generator
 				widgets={{ RemoteDataSelect }}
-				defaultValue={defaultValue}
+				defaultValue={JSON.stringify(schema) != '{}'? schema : defaultValue}
 				settings={concatD}
 				ref={genRef}
 				onChange={(data) => {
