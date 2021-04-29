@@ -18,4 +18,10 @@ RUN yarn install
 
 # Building
 COPY . .
-CMD yarn start
+RUN yarn build
+
+FROM nginx:1.19.0
+COPY --from=builder workspace/build /usr/share/nginx/html/
+COPY --from=builder workspace/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
