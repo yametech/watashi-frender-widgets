@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Generator from 'fr-generator';
 import { Modal, Button } from 'antd';
 // fr-generator 1.0 未提交声明文件 等待 fr-generator 更新
@@ -106,13 +106,21 @@ export function SchemaGenerator(props: Props) {
 		},
 	];
 
+	useEffect(() => {
+		if (JSON.stringify(props.schema) != '{}') {
+			setSchma(props.schema);
+		}
+	}, [props.schema]);
+
 	let concatD = settings.concat(defaultSettings);
+
+	console.log('33413', schema, JSON.stringify(schema) != '{}');
 
 	return (
 		<>
 			<Generator
 				widgets={{ RemoteDataSelect, CascadeSelect }}
-				defaultValue={defaultValue}
+				defaultValue={JSON.stringify(schema) != '{}' ? schema : defaultValue}
 				settings={concatD}
 				ref={genRef}
 				onChange={(data) => {

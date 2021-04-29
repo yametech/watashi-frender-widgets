@@ -38,21 +38,19 @@ const RemoteDataSelect = (props: any) => {
 	}
 
 	return (
-		<div style={{ width: '400px' }}>
-			<Select
-				{...uiOptions}
-				style={{ width: '100%' }}
-				showSearch
-				value={value || undefined}
-				defaultActiveFirstOption={false}
-				onChange={handleChange}
-				notFoundContent={null}
-				filterOption={(input, option: any) =>
-					option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-				}>
-				{renderOptions()}
-			</Select>
-		</div>
+		<Select
+			{...uiOptions}
+			style={{ width: '100%' }}
+			showSearch
+			value={value || undefined}
+			defaultActiveFirstOption={false}
+			onChange={handleChange}
+			notFoundContent={null}
+			filterOption={(input, option: any) =>
+				option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+			}>
+			{renderOptions()}
+		</Select>
 	);
 };
 
