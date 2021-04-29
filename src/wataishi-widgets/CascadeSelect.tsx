@@ -56,19 +56,17 @@ export default function (props: Props) {
 	function handleSearch() {
 		const { schema, addons } = props;
 
-		if (schema.searchBy && addons.formData.hasOwnProperty(schema.searchBy)) {
-			let value = addons.formData[schema.searchBy];
-			console.log(value);
-
-			fetch(value, (data: any) => setData(data));
+		if (schema.searchBy) {
+			fetch(schema.searchBy, (data: any) => setData(data));
 		} else {
 			setData([]);
 		}
 	}
 
 	function handleChange(value: any) {
-		const { onChange, name } = props;
-		onChange(name, value);
+		const { onChange, name, addons } = props;
+		addons.setValue(addons.dataPath, value);
+		// onChange(name, value);
 	}
 
 	let { value, options: uiOptions } = props;

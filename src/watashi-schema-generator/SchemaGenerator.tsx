@@ -45,7 +45,13 @@ const defaultValue = {
 				title: '级联组件',
 				type: 'string',
 				'ui:widget': 'CascadeSelect',
-				searchBy: 'inputName',
+				searchBy: '{{formData.inputName}}',
+			},
+			cascadeSelect_JFFNY34: {
+				title: '级联组件',
+				type: 'string',
+				'ui:widget': 'CascadeSelect',
+				searchBy: '{{formData.cascadeSelect_JFFNY3}}',
 			},
 		},
 		'ui:displayType': 'row',
@@ -106,21 +112,20 @@ export function SchemaGenerator(props: Props) {
 		},
 	];
 
-	useEffect(() => {
-		if (JSON.stringify(props.schema) != '{}') {
-			setSchma(props.schema);
-		}
-	}, [props.schema]);
+	// useEffect(() => {
+	// 	if (JSON.stringify(props.schema) != '{}') {
+	// 		setSchma(props.schema);
+	// 	}
+	// }, [props.schema]);
 
 	let concatD = settings.concat(defaultSettings);
-
-	console.log('33413', schema, JSON.stringify(schema) != '{}');
 
 	return (
 		<>
 			<Generator
 				widgets={{ RemoteDataSelect, CascadeSelect }}
-				defaultValue={JSON.stringify(schema) != '{}' ? schema : defaultValue}
+				// defaultValue={JSON.stringify(schema) != '{}' ? schema : defaultValue}
+				defaultValue={defaultValue}
 				settings={concatD}
 				ref={genRef}
 				onChange={(data) => {
