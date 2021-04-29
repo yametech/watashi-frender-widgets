@@ -14,8 +14,24 @@ import {
 } from './settings';
 import { useRef, useState } from 'react';
 import RemoteDataSelect from '../wataishi-widgets/RemoteDataSelect';
+import CascadeSelect from '../wataishi-widgets/CascadeSelect';
 import { useForm } from 'form-render';
 import { ExpandFormRender } from '../watashi-form-render/ExpandFormRender';
+
+// const defaultValue = {
+// 	schema: {
+// 		type: 'object',
+// 		properties: {
+// 			inputName: {
+// 				title: '简单输入框',
+// 				type: 'string',
+// 			},
+// 		},
+// 	},
+// 	displayType: 'row',
+// 	showDescIcon: true,
+// 	labelWidth: 120,
+// };
 
 const defaultValue = {
 	schema: {
@@ -25,11 +41,18 @@ const defaultValue = {
 				title: '简单输入框',
 				type: 'string',
 			},
+			cascadeSelect_JFFNY3: {
+				title: '级联组件',
+				type: 'string',
+				'ui:widget': 'CascadeSelect',
+				searchBy: 'inputName',
+			},
 		},
+		'ui:displayType': 'row',
+		'ui:showDescIcon': true,
 	},
 	displayType: 'row',
 	showDescIcon: true,
-	labelWidth: 120,
 };
 
 type Props = {
@@ -66,6 +89,19 @@ export function SchemaGenerator(props: Props) {
 						fetchUrl: { title: '请求地址', type: 'string' },
 					},
 				},
+				{
+					text: '级联组件',
+					name: 'cascadeSelect',
+					schema: {
+						title: '级联组件',
+						type: 'string',
+						'ui:widget': 'CascadeSelect',
+					},
+					widget: 'CascadeSelect',
+					setting: {
+						searchBy: { title: '关联组件id', type: 'string' },
+					},
+				},
 			],
 		},
 	];
@@ -75,7 +111,7 @@ export function SchemaGenerator(props: Props) {
 	return (
 		<>
 			<Generator
-				widgets={{ RemoteDataSelect }}
+				widgets={{ RemoteDataSelect, CascadeSelect }}
 				defaultValue={defaultValue}
 				settings={concatD}
 				ref={genRef}

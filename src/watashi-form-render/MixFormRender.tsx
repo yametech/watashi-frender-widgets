@@ -3,6 +3,7 @@ import { Menu, Dropdown, Collapse, Popconfirm } from 'antd';
 import { DeleteTwoTone, DownOutlined } from '@ant-design/icons';
 import FormRender, { useForm } from 'form-render';
 import CascadeSelect from '../wataishi-widgets/CascadeSelect';
+import RemoteDataSelect from '../wataishi-widgets/RemoteDataSelect';
 import { MenuInfo } from 'rc-menu/lib/interface';
 
 const axios = require('axios');
@@ -131,7 +132,7 @@ export function MixFormRender(props: Props) {
 									schema={{}}
 									form={formRef}
 									onFinish={() => {}}
-									// widgets={{ CascadeSelect }}
+									widgets={{ CascadeSelect, RemoteDataSelect }}
 								/>
 							</Panel>
 						);

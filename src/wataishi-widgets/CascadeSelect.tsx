@@ -41,27 +41,28 @@ function fetch(value: any, callback: (arg0: any[]) => void) {
 }
 
 interface Props {
-	formData?: any;
 	schema?: any;
 	name?: string;
 	value?: string;
 	options?: any;
 	onChange?: any;
-	fetch(value: any, callback: any): void;
+	addons?: any;
+	// fetch: (value: any, callback: any) => void;
 }
 
 export default function (props: Props) {
 	const [data, setData] = useState([]);
 
 	function handleSearch() {
-		const { formData, schema, fetch } = props;
-		if (schema.searchBy) {
-			let value = formData[schema.searchBy];
-			if (value) {
-				fetch(value, (data: any) => setData(data));
-			} else {
-				setData([]);
-			}
+		const { schema, addons } = props;
+
+		if (schema.searchBy && addons.formData.hasOwnProperty(schema.searchBy)) {
+			let value = addons.formData[schema.searchBy];
+			console.log(value);
+
+			fetch(value, (data: any) => setData(data));
+		} else {
+			setData([]);
 		}
 	}
 

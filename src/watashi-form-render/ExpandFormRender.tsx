@@ -10,8 +10,6 @@ type Props = {
 };
 
 export function ExpandFormRender(props: Props) {
-	// const formRef = useForm();
-
 	return (
 		<FormRender
 			schema={props.schema}
