@@ -37,22 +37,22 @@ const defaultValue = {
 	schema: {
 		type: 'object',
 		properties: {
-			inputName: {
-				title: '简单输入框',
-				type: 'string',
-			},
-			cascadeSelect_JFFNY3: {
-				title: '级联组件',
-				type: 'string',
-				'ui:widget': 'CascadeSelect',
-				searchBy: '{{formData.inputName}}',
-			},
-			cascadeSelect_JFFNY34: {
-				title: '级联组件',
-				type: 'string',
-				'ui:widget': 'CascadeSelect',
-				searchBy: '{{formData.cascadeSelect_JFFNY3}}',
-			},
+			// inputName: {
+			// 	title: '简单输入框',
+			// 	type: 'string',
+			// },
+			// cascadeSelect_JFFNY3: {
+			// 	title: '级联组件',
+			// 	type: 'string',
+			// 	'ui:widget': 'CascadeSelect',
+			// 	searchBy: '{{formData.inputName}}',
+			// },
+			// cascadeSelect_JFFNY34: {
+			// 	title: '级联组件',
+			// 	type: 'string',
+			// 	'ui:widget': 'CascadeSelect',
+			// 	searchBy: '{{formData.cascadeSelect_JFFNY3}}',
+			// },
 		},
 		'ui:displayType': 'row',
 		'ui:showDescIcon': true,
@@ -106,8 +106,9 @@ export function SchemaGenerator(props: Props) {
 					widget: 'CascadeSelect',
 					setting: {
 						searchBy: { title: '关联组件id', type: 'string' },
+						fetchUrl: { title: '请求地址', type: 'string' },
 					},
-				},
+				}
 			],
 		},
 	];

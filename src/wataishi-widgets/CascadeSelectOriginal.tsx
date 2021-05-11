@@ -52,7 +52,6 @@ interface Props {
 
 export default function (props: Props) {
 	const [data, setData] = useState([]);
-	const [loading, setLoading] = useState(false);
 
 	function handleSearch() {
 		const { schema, addons } = props;
@@ -87,8 +86,7 @@ export default function (props: Props) {
 			filterOption={false}
 			onClick={handleSearch}
 			onChange={handleChange}
-			notFoundContent={null}
-			loading={loading}>
+			notFoundContent={null}>
 			{options}
 		</Select>
 	);
