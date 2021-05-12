@@ -1,44 +1,12 @@
 import React from 'react';
 import { Select } from 'antd';
-import jsonp from 'fetch-jsonp';
 import querystring from 'querystring';
 import { useState } from 'react';
+import axios from 'axios';
 const { Option } = Select;
 
 let timeout: NodeJS.Timeout | null;
 let currentValue: any;
-
-function fetch(value: any, callback: (arg0: any[]) => void) {
-	if (timeout) {
-		clearTimeout(timeout);
-		timeout = null;
-	}
-	currentValue = value;
-
-	function fake() {
-		const str = querystring.encode({
-			code: 'utf-8',
-			q: value,
-		});
-		jsonp(`https://suggest.taobao.com/sug?${str}`)
-			.then((response) => response.json())
-			.then((d) => {
-				if (currentValue === value) {
-					const { result } = d;
-					const data: any[] = [];
-					result.forEach((r: any) => {
-						data.push({
-							value: r[0],
-							text: r[0],
-						});
-					});
-					callback(data);
-				}
-			});
-	}
-
-	timeout = setTimeout(fake, 300);
-}
 
 interface Props {
 	schema?: any;
@@ -53,33 +21,63 @@ interface Props {
 export default function (props: Props) {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [url, setUrl] = useState(props.schema.fetchUrl || '');
+
+	function fetch(value: any, callback: (arg0: any[]) => void) {
+		if (timeout) {
+			clearTimeout(timeout);
+			timeout = null;
+		}
+		currentValue = value;
+	
+		function request() {
+			const str = querystring.encode({
+				code: 'utf-8',
+				q: value,
+			});
+			if(!url) { console.log('please set request url') }
+			axios(`${url}?${str}`).then((res: any) => {
+				callback(res.data?.data || [])
+			})
+		}
+	
+		timeout = setTimeout(request, 300);
+	}
 
 	function handleSearch() {
 		const { schema, addons } = props;
-
 		if (schema.searchBy) {
-			fetch(schema.searchBy, (data: any) => setData(data));
+			setLoading(true)
+			fetch(schema.searchBy, (data: any) => {
+				setData(data)
+				setLoading(false)
+			});
 		} else {
 			setData([]);
+			addons.setValue(addons.dataPath, undefined);
 		}
 	}
 
 	function handleChange(value: any) {
-		const { onChange, name, addons } = props;
+		const { addons, schema } = props;
 		addons.setValue(addons.dataPath, value);
-		// onChange(name, value);
+		let affectArr = schema?.affectTo?.split(',') || []
+		affectArr.forEach((item: any) => {
+			addons.setValue(item, undefined);
+		})
 	}
 
 	let { value, options: uiOptions } = props;
 	const options = data.map((d: any) => (
 		<Option key={d.value} value={d.value}>
-			{d.text}
+			{d.label}
 		</Option>
 	));
 
 	return (
 		<Select
 			{...uiOptions}
+			placeholder='请选择'
 			style={{ width: '100%' }}
 			showSearch
 			value={value || undefined}
@@ -93,3 +91,4 @@ export default function (props: Props) {
 		</Select>
 	);
 }
+

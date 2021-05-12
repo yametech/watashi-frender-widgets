@@ -46,6 +46,7 @@ const defaultValue = {
 			// 	type: 'string',
 			// 	'ui:widget': 'CascadeSelect',
 			// 	searchBy: '{{formData.inputName}}',
+			// 	fetchUrl: 'http://localhost:7000/api/ordinary/select'
 			// },
 			// cascadeSelect_JFFNY34: {
 			// 	title: '级联组件',
@@ -86,12 +87,13 @@ export function SchemaGenerator(props: Props) {
 					text: '服务端下拉选框',
 					name: 'asyncSelect',
 					schema: {
-						title: '来自服务端',
+						title: '服务端下拉',
 						type: 'string',
 						'ui:widget': 'RemoteDataSelect',
 					},
 					widget: 'RemoteDataSelect',
 					setting: {
+						affectTo: { title: '影响的组件id', type: 'string'},
 						fetchUrl: { title: '请求地址', type: 'string' },
 					},
 				},
@@ -106,6 +108,7 @@ export function SchemaGenerator(props: Props) {
 					widget: 'CascadeSelect',
 					setting: {
 						searchBy: { title: '关联组件id', type: 'string' },
+						affectTo: { title: '影响的组件id', type: 'string'},
 						fetchUrl: { title: '请求地址', type: 'string' },
 					},
 				}

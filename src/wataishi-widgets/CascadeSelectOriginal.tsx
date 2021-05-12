@@ -66,7 +66,6 @@ export default function (props: Props) {
 	function handleChange(value: any) {
 		const { onChange, name, addons } = props;
 		addons.setValue(addons.dataPath, value);
-		// onChange(name, value);
 	}
 
 	let { value, options: uiOptions } = props;
