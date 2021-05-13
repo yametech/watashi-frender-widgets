@@ -29,7 +29,7 @@ const RemoteDataSelect = (props: any) => {
 			<>
 				{options?.length &&
 					options.map((d: any) => (
-						<Option value={d.value} key={d.value}>
+						<Option value={d.value} key={d.id || d.value}>
 							{d.label}
 						</Option>
 					))}

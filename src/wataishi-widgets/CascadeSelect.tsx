@@ -69,7 +69,7 @@ export default function (props: Props) {
 
 	let { value, options: uiOptions } = props;
 	const options = data.map((d: any) => (
-		<Option key={d.value} value={d.value}>
+		<Option key={d.id || d.value} value={d.value}>
 			{d.label}
 		</Option>
 	));
@@ -82,11 +82,13 @@ export default function (props: Props) {
 			showSearch
 			value={value || undefined}
 			defaultActiveFirstOption={false}
-			filterOption={false}
 			onClick={handleSearch}
 			onChange={handleChange}
 			notFoundContent={null}
-			loading={loading}>
+			loading={loading}
+			filterOption={(input, option: any) =>
+				option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+			}>
 			{options}
 		</Select>
 	);
